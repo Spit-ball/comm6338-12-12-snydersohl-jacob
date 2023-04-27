@@ -58,11 +58,25 @@ class Word {
   }
 
   isGameOver() {
-
+    if (this.displayWord === this.word) {
+      // Player has won
+      return true
+    } else if (this.remainingGuesses === 0) {
+      // Player has lost
+      return true
+    } else {
+      return false
+    }
   }
 
   getWinOrLoss() {
-
+    if (this.displayWord === this.word) {
+      return 'win'
+    } else if (this.remainingGuesses === 0) {
+      return 'loss'
+    } else {
+      return null
+    }
   }
 }
 
