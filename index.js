@@ -58,7 +58,7 @@ class Word {
   }
 
   isGameOver() {
-    if (this.displayWord === this.word) {
+    if (this.displayWord === this.word && this.remainingGuesses > 0) {
       // Player has won
       return true
     } else if (this.remainingGuesses === 0) {
@@ -88,12 +88,18 @@ function newGame() {
 
 document.onkeyup = function (e) {
   const pressedKey = e.key.toLowerCase()
+  // early exit for non-letter key presses
   if (!/^[a-z]{1}$/g.test(pressedKey)) return
+
+  // pass in guessed letter to word obj
   currentWord.guessLetter(pressedKey)
+  // allow word obj to update screen
   currentWord.updateScreen()
 
+  // check if game is over
   const gameOver = currentWord.isGameOver()
 
+  // if game is over, update wins/losses and start new game
   if (gameOver) {
     const previousWord = document.getElementById('previous-word')
     const winDisplay = document.getElementById('wins')
